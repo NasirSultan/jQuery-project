@@ -3,18 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jQuery Task Manager</title>
+    <title>jQuery Interactive Card</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-
-    <script src="script.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>jQuery Task Manager</h1>
-        <input type="text" id="taskInput" placeholder="Add a new task">
-        <button id="addTaskButton">Add Task</button>
-        <ul id="taskList"></ul>
+        <div class="card">
+            <div class="card-header">Interactive Card</div>
+            <div class="card-body">
+                <button class="toggle-btn">Click to Show/Hide Content</button>
+                <div class="content">
+                    <p>Here’s a jQuery-powered card!</p>
+                    <form id="cardForm">
+                        <input type="text" id="inputText" placeholder="Type something" required>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <button class="delete-btn">Delete Card</button>
+            </div>
+        </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

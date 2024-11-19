@@ -1,48 +1,59 @@
-$(document).ready(function() {
-    // Add a task when the "Add Task" button is clicked
-    $('#addTaskButton').click(function() {
-        const taskText = $('#taskInput').val();
-        if (taskText.trim() !== "") {
-            addTask(taskText);
-            $('#taskInput').val('');
-        }
-    });
+$(document).ready(function () {
+  // Fade In Card on page load
+  $(".card").fadeIn(1000);
 
-    // Function to add a task with slide and fade-in effect
-    function addTask(taskText) {
-        const taskItem = $('<li class="task-item"></li>');
-        taskItem.html(`
-            <span class="task-text">${taskText}</span>
-            <button class="completeTask">Complete</button>
-            <button class="deleteTask">Delete</button>
-        `);
+  // Mouse Hover Event to change border color
+  $(".card").hover(
+      function () {
+          $(this).css("border-color", "#3498db");
+      },
+      function () {
+          $(this).css("border-color", "#ddd");
+      }
+  );
 
-        // Add task with a combination of fade and slide effect
-        taskItem.hide().appendTo('#taskList').slideDown(400).fadeIn(400);
+  // Click Event to Toggle Show/Hide Content
+  $(".toggle-btn").click(function () {
+      var content = $(this).siblings(".content");
+      if (content.is(":visible")) {
+          content.slideUp(500);
+      } else {
+          content.slideDown(500);
+      }
+  });
 
-        // Mark task as completed with bounce effect
-        taskItem.find('.completeTask').click(function() {
-            const taskTextElem = $(this).parent().find('.task-text');
-            taskTextElem.toggleClass('task-completed');
+  // Keyboard Event - Focus input
+  $("#inputText").on('focus', function () {
+      $(this).css("background-color", "#eaf1f8");
+  }).on('blur', function () {
+      $(this).css("background-color", "#fff");
+  });
 
-            // Add a bounce effect when task is marked as complete
-            taskTextElem.effect('bounce', { times: 2, distance: 10 }, 300);
-        });
+  // Form Submit Event
+  $("#cardForm").submit(function (event) {
+      event.preventDefault(); // Prevent form submission
+      var inputText = $("#inputText").val();
+      alert("Form Submitted! You typed: " + inputText);
+  });
 
-        // Delete task with fade-out and slide-up effect
-        taskItem.find('.deleteTask').click(function() {
-            $(this).parent().fadeOut(300, function() {
-                $(this).slideUp(300, function() {
-                    $(this).remove();
-                });
-            });
-        });
-    }
+  // Window Resize Event
+  $(window).resize(function () {
+      console.log("Window resized!");
+  });
 
-    // Add task on pressing Enter key
-    $('#taskInput').keypress(function(e) {
-        if (e.which === 13) {
-            $('#addTaskButton').click();
-        }
-    });
+  // Animation - Apply custom animation to header
+  $(".card-header").animate({
+      fontSize: "22px",
+      padding: "15px"
+  }, 500);
+
+  // Delete Card and Alert
+  $(".delete-btn").click(function () {
+      var confirmDelete = confirm("Are you sure you want to delete this card?");
+      if (confirmDelete) {
+          $(this).closest(".card").fadeOut(500, function () {
+              $(this).remove();
+          });
+      }
+  });
 });
